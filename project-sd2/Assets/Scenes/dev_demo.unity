@@ -8637,6 +8637,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 838830946264131737, guid: b5f4d817522a14c3daf75772a2f225e2, type: 3}
   m_PrefabInstance: {fileID: 1924789386}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1931099764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1931099765}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1931099765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931099764}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.021, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1963996804}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1961119434
 GameObject:
   m_ObjectHideFlags: 0
@@ -8775,6 +8806,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450651618076671}
+  - {fileID: 1931099765}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1995779296
@@ -9287,9 +9319,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2082144280}
   cam: {fileID: 330585546}
+  groundCheck: {fileID: 1931099765}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
   walkSpeed: 3
   sprintSpeed: 6
+  jumpHeight: 2
+  gravity: -9.81
   turnSmoothTime: 0.1
+  groundDistance: 0.4
 --- !u!143 &2082144280
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9311,7 +9350,7 @@ CharacterController:
   m_Height: 1.6
   m_Radius: 0.2
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.7
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
