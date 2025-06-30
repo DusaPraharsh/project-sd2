@@ -20,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
     public float gravity = -9.81f;
     private float gravityMultiplier = 3.0f;
 
+    [Header("Crouch")]
+    public float crouchSpeed;
+    private bool isCrouching;
+
     [Header("Camera Smoothing")]
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -56,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         MoveDirection();
         MovePlayer();
         GravityAndJump();
+        Crouch();
     }
 
     private void MoveDirection()
@@ -78,7 +83,16 @@ public class PlayerMovement : MonoBehaviour
         {
             isSprinting = Input.GetKey(KeyCode.LeftShift);
 
-            currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
+            if (isCrouching)
+            {
+                currentSpeed = crouchSpeed;
+                isSprinting = false;
+            }
+            else
+            {
+                isSprinting = Input.GetKey(KeyCode.LeftShift);
+                currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
+            }
 
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -114,5 +128,14 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * gravityMultiplier * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    private void Crouch()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            isCrouching = !isCrouching;
+            anim.SetBool("crouching", isCrouching);
+        }
     }
 }
